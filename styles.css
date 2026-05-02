@@ -65,7 +65,11 @@ a {
 
 section[id],
 .packs-head[id] {
-  scroll-margin-top: 92px;
+  scroll-margin-top: 72px;
+}
+
+.ritual {
+  padding-bottom: 7.2rem;
 }
 
 .noise-overlay {
@@ -1074,6 +1078,11 @@ h1 {
   padding-left: 1.2rem;
 }
 
+.ritual-intro {
+  color: var(--muted);
+  margin-bottom: 0.4rem;
+}
+
 .ritual-copy li {
   margin-bottom: 0.7rem;
   color: var(--muted);
@@ -1101,6 +1110,32 @@ h1 {
   text-transform: uppercase;
   font-size: 0.75rem;
   letter-spacing: 0.16em;
+}
+
+.ritual-points {
+  margin-top: 1.2rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.ritual-points article {
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(31, 26, 23, 0.12);
+  background: rgba(255, 255, 255, 0.62);
+  box-shadow: var(--shadow-soft);
+  padding: 1rem;
+}
+
+.ritual-points h3 {
+  font-size: 1.06rem;
+  margin-bottom: 0.45rem;
+}
+
+.ritual-points p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
 }
 
 .contact-grid {
@@ -1514,6 +1549,10 @@ textarea:focus {
     grid-template-columns: 1fr;
   }
 
+  .ritual-points {
+    grid-template-columns: 1fr;
+  }
+
   .hero-panel {
     min-height: 260px;
   }
@@ -1565,7 +1604,7 @@ textarea:focus {
 
   section[id],
   .packs-head[id] {
-    scroll-margin-top: 84px;
+    scroll-margin-top: 66px;
   }
 
   .services-grid {
