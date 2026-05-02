@@ -1,5 +1,68 @@
 const navToggle = document.querySelector('.nav-toggle');
 const nav = document.querySelector('.site-nav');
+const siteHeader = document.querySelector('.site-header');
+
+function getAnchorOffset() {
+  const headerHeight = siteHeader ? siteHeader.getBoundingClientRect().height : 74;
+  return Math.ceil(headerHeight + 10);
+}
+
+function getAnchorOffsetByHash(hash) {
+  const baseOffset = getAnchorOffset();
+  if (hash === '#ritual') {
+    return baseOffset + 18;
+  }
+
+  return baseOffset;
+}
+
+function getVisualAnchorTarget(target) {
+  if (!target) {
+    return target;
+  }
+
+  if (!target.matches('section')) {
+    return target;
+  }
+
+  const innerTarget = target.querySelector('.section-head, .packs-head, .ritual-copy, .contact-info, h2');
+  return innerTarget || target;
+}
+
+function getDocumentTop(element) {
+  if (!element) {
+    return 0;
+  }
+
+  let top = 0;
+  let current = element;
+
+  while (current) {
+    top += current.offsetTop || 0;
+    current = current.offsetParent;
+  }
+
+  return top;
+}
+
+function scrollToAnchor(hash) {
+  if (!hash || hash === '#') {
+    return;
+  }
+
+  const target = document.querySelector(hash);
+  const visualTarget = getVisualAnchorTarget(target);
+
+  if (!visualTarget) {
+    return;
+  }
+
+  const top = getDocumentTop(visualTarget) - getAnchorOffsetByHash(hash);
+  window.scrollTo({
+    top: Math.max(0, top),
+    behavior: 'smooth',
+  });
+}
 
 if (navToggle && nav) {
   navToggle.addEventListener('click', () => {
@@ -9,13 +72,26 @@ if (navToggle && nav) {
   });
 
   nav.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => {
+    link.addEventListener('click', (event) => {
+      const href = link.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        event.preventDefault();
+        scrollToAnchor(href);
+        history.replaceState(null, '', href);
+      }
+
       nav.classList.remove('open');
       navToggle.setAttribute('aria-expanded', 'false');
       navToggle.setAttribute('aria-label', 'Abrir menu');
     });
   });
 }
+
+window.addEventListener('load', () => {
+  if (window.location.hash) {
+    scrollToAnchor(window.location.hash);
+  }
+});
 
 const revealItems = document.querySelectorAll('.reveal');
 

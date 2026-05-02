@@ -65,11 +65,15 @@ a {
 
 section[id],
 .packs-head[id] {
-  scroll-margin-top: 72px;
+  scroll-margin-top: 86px;
 }
 
 .ritual {
   padding-bottom: 7.2rem;
+}
+
+.ritual-head {
+  margin-bottom: 1.35rem;
 }
 
 .noise-overlay {
@@ -466,6 +470,55 @@ h1 {
 .social-icon-card:hover .social-name {
   color: var(--clay);
   font-weight: 700;
+}
+
+@media (max-height: 860px) and (min-width: 1024px) {
+  .hero {
+    padding-top: 2.2rem;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 4vw, 4rem);
+    margin-bottom: 0.7rem;
+  }
+
+  .lead {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-actions {
+    margin-top: 1.1rem;
+  }
+
+  .social-links-hero {
+    margin-top: 1.6rem;
+    padding-top: 1.2rem;
+  }
+
+  .social-header {
+    margin-bottom: 0.9rem;
+  }
+
+  .social-icons {
+    gap: 0.8rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .social-icon-bg {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+  }
+
+  .social-icon-bg svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .social-name {
+    font-size: 0.82rem;
+  }
 }
 
 @media (max-width: 680px) {
@@ -1073,6 +1126,11 @@ h1 {
   padding: clamp(1.2rem, 3vw, 2.2rem);
 }
 
+.ritual-copy h3 {
+  font-size: clamp(1.4rem, 2.2vw, 2rem);
+  margin-bottom: 0.55rem;
+}
+
 .ritual-copy ol {
   margin: 1rem 0 0;
   padding-left: 1.2rem;
@@ -1604,7 +1662,7 @@ textarea:focus {
 
   section[id],
   .packs-head[id] {
-    scroll-margin-top: 66px;
+    scroll-margin-top: 82px;
   }
 
   .services-grid {
