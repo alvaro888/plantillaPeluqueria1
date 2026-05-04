@@ -1684,6 +1684,10 @@ textarea:focus {
 }
 
 @media (max-width: 780px) {
+  .site-footer {
+    padding-bottom: calc(5.6rem + env(safe-area-inset-bottom));
+  }
+
   .mobile-sticky-cta {
     position: fixed;
     left: 0;
@@ -1692,10 +1696,15 @@ textarea:focus {
     z-index: 120;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0.65rem;
-    padding: 0.7rem 4vw calc(0.7rem + env(safe-area-inset-bottom));
+    gap: 0.55rem;
+    padding: 0.55rem 4vw calc(0.55rem + env(safe-area-inset-bottom));
     background: linear-gradient(180deg, rgba(24, 18, 14, 0), rgba(24, 18, 14, 0.92) 45%);
     backdrop-filter: blur(8px);
+  }
+
+  .mobile-cta-btn {
+    min-height: 42px;
+    font-size: 0.9rem;
   }
 
   .site-nav {
