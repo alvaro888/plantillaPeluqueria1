@@ -170,7 +170,7 @@ setInterval(updateOpenStatus, 60 * 1000);
 const revealItems = document.querySelectorAll('.reveal');
 
 revealItems.forEach((item, index) => {
-  item.style.animationDelay = `${Math.min(index * 70, 420)}ms`;
+  item.style.animationDelay = `${Math.min(index * 35, 180)}ms`;
 });
 
 const revealObserver = new IntersectionObserver(
@@ -185,7 +185,8 @@ const revealObserver = new IntersectionObserver(
     });
   },
   {
-    threshold: 0.15,
+    threshold: 0.08,
+    rootMargin: '0px 0px 10% 0px',
   }
 );
 
