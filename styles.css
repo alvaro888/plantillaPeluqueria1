@@ -1684,10 +1684,6 @@ textarea:focus {
 }
 
 @media (max-width: 780px) {
-  .site-footer {
-    padding-bottom: calc(1.2rem + 90px + env(safe-area-inset-bottom));
-  }
-
   .mobile-sticky-cta {
     position: fixed;
     left: 0;
