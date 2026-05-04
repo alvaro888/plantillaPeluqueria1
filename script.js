@@ -93,6 +93,80 @@ window.addEventListener('load', () => {
   }
 });
 
+function getMadridWeekdayAndTime() {
+  const formatter = new Intl.DateTimeFormat('es-ES', {
+    timeZone: 'Europe/Madrid',
+    weekday: 'long',
+    hour: '2-digit',
+    minute: '2-digit',
+    hourCycle: 'h23',
+  });
+
+  const parts = formatter.formatToParts(new Date());
+  const weekday = parts.find((part) => part.type === 'weekday')?.value?.toLowerCase() || '';
+  const hour = Number(parts.find((part) => part.type === 'hour')?.value || 0);
+  const minute = Number(parts.find((part) => part.type === 'minute')?.value || 0);
+
+  return { weekday, hour, minute };
+}
+
+function updateOpenStatus() {
+  const statusBadge = document.querySelector('.card-status');
+  const statusText = document.querySelector('.status-text');
+  const hoursGrid = document.querySelector('.hours-grid');
+  const openItem = document.querySelector('.hour-item-open');
+  const closeItem = document.querySelector('.hour-item-close');
+  const openLabel = openItem?.querySelector('.label');
+  const openTime = openItem?.querySelector('.time');
+  const closeLabel = closeItem?.querySelector('.label');
+  const closeTime = closeItem?.querySelector('.time');
+
+  if (!statusBadge || !statusText) {
+    return;
+  }
+
+  const { weekday, hour, minute } = getMadridWeekdayAndTime();
+  const openDays = new Set(['lunes', 'martes', 'miercoles', 'miércoles', 'jueves', 'viernes', 'sabado', 'sábado']);
+  const openMinutes = 10 * 60;
+  const closeMinutes = 20 * 60;
+  const currentMinutes = hour * 60 + minute;
+  const isOpenToday = openDays.has(weekday);
+  const isOpenNow = isOpenToday && currentMinutes >= openMinutes && currentMinutes < closeMinutes;
+
+  statusBadge.classList.toggle('open', isOpenNow);
+  statusBadge.classList.toggle('closed', !isOpenNow);
+
+  if (isOpenNow) {
+    statusText.textContent = 'Abierto ahora';
+  } else {
+    statusText.textContent = isOpenToday ? 'Cerrado ahora' : 'Cerrado hoy';
+  }
+
+  if (!hoursGrid || !openItem || !closeItem || !openLabel || !openTime || !closeLabel || !closeTime) {
+    return;
+  }
+
+  if (isOpenToday) {
+    hoursGrid.classList.remove('closed-day');
+    openItem.classList.remove('closed-day');
+    closeItem.hidden = false;
+    openLabel.textContent = 'Apertura';
+    openTime.textContent = '10:00';
+    closeLabel.textContent = 'Cierre';
+    closeTime.textContent = '20:00';
+    return;
+  }
+
+  hoursGrid.classList.add('closed-day');
+  openItem.classList.add('closed-day');
+  closeItem.hidden = true;
+  openLabel.textContent = 'Domingo';
+  openTime.textContent = 'Cerrado';
+}
+
+updateOpenStatus();
+setInterval(updateOpenStatus, 60 * 1000);
+
 const revealItems = document.querySelectorAll('.reveal');
 
 revealItems.forEach((item, index) => {
